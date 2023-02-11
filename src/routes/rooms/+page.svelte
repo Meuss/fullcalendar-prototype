@@ -4,7 +4,7 @@
 	import interactionPlugin from '@fullcalendar/interaction';
 	import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 	import { events } from '$lib/data/events.js';
-	import { resources } from '$lib/resources.js';
+	import { resources } from '$lib/data/resources.js';
 
 	let calendarDiv;
 	let calendar;
