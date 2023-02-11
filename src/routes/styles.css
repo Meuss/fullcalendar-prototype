@@ -1,5 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
 
+:root {
+	--font-body: 'Montserrat', Arial, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+	--font-mono: 'Montserrat', Arial, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+	--color-bg-0: rgb(202, 216, 228);
+	--color-bg-1: hsl(209, 36%, 86%);
+	--color-bg-2: hsl(224, 44%, 95%);
+	--color-theme-1: #ff3e00;
+	--color-theme-2: #4075a6;
+	--color-text: rgba(0, 0, 0, 0.7);
+	--column-width: 42rem;
+	--column-margin-top: 4rem;
+	font-family: var(--font-body);
+	color: var(--color-text);
+
+	--fc-small-font-size: 0.85em !important;
+	--fc-page-bg-color: rgba(217, 189, 151, 0.2) !important;
+	--fc-neutral-bg-color: rgba(208, 208, 208, 0.3) !important;
+	--fc-neutral-text-color: #333 !important;
+	--fc-border-color: rgba(0, 0, 0, 0.2) !important;
+
+	--fc-button-text-color: #151e27 !important;
+	--fc-button-bg-color: #d9bd97 !important;
+	--fc-button-border-color: #956e37 !important;
+	--fc-button-hover-bg-color: #e9d9c3 !important;
+	--fc-button-hover-border-color: #e9d9c3 !important;
+	--fc-button-active-bg-color: #e9d9c3 !important;
+	--fc-button-active-border-color: #e9d9c3 !important;
+
+	--fc-event-bg-color: #d9bd97 !important;
+	--fc-event-border-color: #956e37 !important;
+	--fc-event-text-color: #000 !important;
+	--fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25) !important;
+
+	--fc-non-business-color: rgba(0, 0, 0, 0.15) !important;
+	--fc-highlight-color: rgba(188, 232, 241, 0.3) !important;
+	--fc-today-bg-color: rgba(217, 189, 151, 0.2) !important;
+}
+
 body {
 	min-height: 100vh;
 	margin: 0;
