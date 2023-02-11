@@ -37,6 +37,19 @@
 		editable: true,
 		height: 800,
 		eventBackgroundColor: '#d9bd97',
+		selectable: true,
+		select: function (e) {
+			const newEvent = {
+				start: e.startStr,
+				end: e.endStr,
+				resourceId: e.resource._resource.id,
+				extendedProps: {
+					roomName: 'todo'
+				},
+				color: e.resource.extendedProps.color
+			};
+			calendar.addEvent(newEvent);
+		},
 		titleFormat: {
 			year: 'numeric',
 			month: 'long',
