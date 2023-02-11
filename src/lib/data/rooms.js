@@ -3,7 +3,7 @@ const regularHours = {
 	startTime: '08:00',
 	endTime: '18:00'
 };
-export const resources = [
+export const rooms = [
 	{
 		id: 'a',
 		title: 'Réception',

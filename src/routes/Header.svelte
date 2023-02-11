@@ -17,13 +17,13 @@
 		</svg>
 		<ul>
 			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Thérapists</a>
+				<a href="/">Salles</a>
 			</li>
-			<li aria-current={$page.url.pathname === '/rooms' ? 'page' : undefined}>
-				<a href="/rooms">Rooms</a>
+			<li aria-current={$page.url.pathname === '/therapists' ? 'page' : undefined}>
+				<a href="/therapists">Thérapeutes</a>
 			</li>
 			<li aria-current={$page.url.pathname === '/personnal' ? 'page' : undefined}>
-				<a href="/personnal">Personnal</a>
+				<a href="/personnal">Personnel</a>
 			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">

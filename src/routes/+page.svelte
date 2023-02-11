@@ -3,12 +3,28 @@
 	import { Calendar } from '@fullcalendar/core';
 	import interactionPlugin from '@fullcalendar/interaction';
 	import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
-	import { events } from '$lib/data/events.js';
-	import { resources } from '$lib/data/resources.js';
+	import { dayEvents } from '$lib/data/dayEvents.js';
+	import { rooms } from '$lib/data/rooms.js';
+	import { therapists } from '$lib/data/therapists.js';
 
+	// Prepare the events for rooms view
+	const events = dayEvents.map((event) => {
+		const therapist = therapists.find(
+			(therapist) => therapist.id === event.extendedProps.therapist
+		);
+		return {
+			...event,
+			resourceId: event.extendedProps.room,
+			extendedProps: {
+				...event.extendedProps,
+				therapist: therapist.title
+			},
+			color: therapist.color
+		};
+	});
 	let calendarDiv;
 	let calendar;
-	// initial number of resources to show
+	// initial number of rooms to show
 	const initialResourceCount = 3;
 	const settings = {
 		plugins: [interactionPlugin, resourceTimeGridPlugin],
@@ -52,7 +68,7 @@
 		calendar = new Calendar(calendarDiv, {
 			...settings,
 			events,
-			resources: resources.slice(0, initialResourceCount),
+			resources: rooms.slice(0, initialResourceCount),
 			eventContent: (arg) => {
 				let div = document.createElement('div');
 				div.classList.add('event-content');
@@ -100,10 +116,10 @@
 		calendar.render();
 	});
 
-	// Toggling resources
+	// Toggling rooms
 	function toggleResource(event) {
 		// get the appropriate resource
-		const res = resources.find((resource) => resource.id === event.target.id);
+		const res = rooms.find((resource) => resource.id === event.target.id);
 		// add or remove it from calendar
 		if (event.target.checked) {
 			calendar.addResource(res);
@@ -115,14 +131,14 @@
 		}
 	}
 	function reset() {
-		// remove all resources
+		// remove all rooms
 		const all = calendar.getTopLevelResources();
 		all.forEach((resource) => resource.remove());
 		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 		checkboxes.forEach((checkbox) => (checkbox.checked = false));
-		// add the initial resources
+		// add the initial rooms
 		for (let i = 0; i < initialResourceCount; i++) {
-			calendar.addResource(resources[i]);
+			calendar.addResource(rooms[i]);
 			checkboxes[i].checked = true;
 		}
 	}
@@ -137,14 +153,14 @@
 	<aside>
 		<h1>Salles</h1>
 		<div class="options">
-			{#each resources as resource, index}
+			{#each rooms as room, index}
 				<label>
 					{#if index < initialResourceCount}
-						<input type="checkbox" id={resource.id} on:change={toggleResource} checked />
+						<input type="checkbox" id={room.id} on:change={toggleResource} checked />
 					{:else}
-						<input type="checkbox" id={resource.id} on:change={toggleResource} />
+						<input type="checkbox" id={room.id} on:change={toggleResource} />
 					{/if}
-					{resource.title}
+					{room.title}
 				</label>
 			{/each}
 			<button on:click={reset}>Reset</button>

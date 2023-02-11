@@ -3,13 +3,31 @@
 	import { Calendar } from '@fullcalendar/core';
 	import interactionPlugin from '@fullcalendar/interaction';
 	import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
-	import { events } from '$lib/data/events.js';
-	import { resources } from '$lib/data/resources.js';
+	import { dayEvents } from '$lib/data/dayEvents.js';
+	import { rooms } from '$lib/data/rooms.js';
+	import { therapists } from '$lib/data/therapists.js';
+
+	// Prepare the events for therapists view
+	const events = dayEvents.map((event) => {
+		const therapist = therapists.find(
+			(therapist) => therapist.id === event.extendedProps.therapist
+		);
+		return {
+			...event,
+			resourceId: event.extendedProps.therapist,
+			extendedProps: {
+				...event.extendedProps,
+				therapist: therapist.title,
+				roomName: rooms.find((room) => room.id === event.extendedProps.room).title
+			},
+			color: therapist.color
+		};
+	});
 
 	let calendarDiv;
 	let calendar;
-	// initial number of resources to show
-	const initialResourceCount = 3;
+	// initial number of therapists to show
+	const initialResourceCount = 4;
 	const settings = {
 		plugins: [interactionPlugin, resourceTimeGridPlugin],
 		initialView: 'resourceTimeGridDay',
@@ -52,13 +70,13 @@
 		calendar = new Calendar(calendarDiv, {
 			...settings,
 			events,
-			resources: resources.slice(0, initialResourceCount),
+			resources: therapists.slice(0, initialResourceCount),
 			eventContent: (arg) => {
 				let div = document.createElement('div');
 				div.classList.add('event-content');
 
 				let html = `
-					<div><strong>${arg.event.extendedProps.therapist}</strong> ${arg.timeText}</div>
+					<div><strong>${arg.event.extendedProps.roomName}</strong> ${arg.timeText}</div>
 				`;
 				if (arg.event.extendedProps.client) {
 					html += `
@@ -100,11 +118,9 @@
 		calendar.render();
 	});
 
-	// Toggling resources
+	// Toggling therapists
 	function toggleResource(event) {
-		// get the appropriate resource
-		const res = resources.find((resource) => resource.id === event.target.id);
-		// add or remove it from calendar
+		const res = therapists.find((resource) => resource.id === event.target.id);
 		if (event.target.checked) {
 			calendar.addResource(res);
 		} else {
@@ -115,36 +131,36 @@
 		}
 	}
 	function reset() {
-		// remove all resources
+		// remove all therapists
 		const all = calendar.getTopLevelResources();
 		all.forEach((resource) => resource.remove());
 		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 		checkboxes.forEach((checkbox) => (checkbox.checked = false));
-		// add the initial resources
+		// add the initial therapists
 		for (let i = 0; i < initialResourceCount; i++) {
-			calendar.addResource(resources[i]);
+			calendar.addResource(therapists[i]);
 			checkboxes[i].checked = true;
 		}
 	}
 </script>
 
 <svelte:head>
-	<title>Agenda salles</title>
-	<meta name="description" content="Agenda - Salles" />
+	<title>Agenda Personnel</title>
+	<meta name="description" content="Agenda - Personnel" />
 </svelte:head>
 
 <div class="container">
 	<aside>
-		<h1>Salles</h1>
+		<h1>Personnel</h1>
 		<div class="options">
-			{#each resources as resource, index}
+			{#each therapists as therapist, index}
 				<label>
 					{#if index < initialResourceCount}
-						<input type="checkbox" id={resource.id} on:change={toggleResource} checked />
+						<input type="checkbox" id={therapist.id} on:change={toggleResource} checked />
 					{:else}
-						<input type="checkbox" id={resource.id} on:change={toggleResource} />
+						<input type="checkbox" id={therapist.id} on:change={toggleResource} />
 					{/if}
-					{resource.title}
+					{therapist.title}
 				</label>
 			{/each}
 			<button on:click={reset}>Reset</button>

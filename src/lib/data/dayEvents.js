@@ -4,82 +4,75 @@ const month = String(today.getMonth() + 1).padStart(2, '0');
 const day = String(today.getDate()).padStart(2, '0');
 const t = `${year}-${month}-${day}`;
 
-export const events = [
+export const dayEvents = [
 	{
 		start: `${t}T08:00:00`,
 		end: `${t}T12:00:00`,
-		resourceId: 'a',
 		startTime: '08:00', // recurring event
 		endTime: '12:00', // recurring event
 		extendedProps: {
-			therapist: 'Joao'
-		},
-		color: 'rgba(255, 0, 0, 0.2)'
+			room: 'a',
+			therapist: '1'
+		}
 	},
 	{
-		start: `${t}T08:00:00`,
-		end: `${t}T10:00:00`,
-		resourceId: 'c',
+		start: `${t}T14:30:00`,
+		end: `${t}T16:00:00`,
 		extendedProps: {
-			therapist: 'Joao',
+			room: 'b',
+			therapist: '1',
 			client: 'Eric Constantin',
 			service: 'Kobido'
-		},
-		color: 'rgba(255, 0, 0, 0.2)'
+		}
 	},
 	{
 		start: `${t}T16:00:00`,
 		end: `${t}T17:00:00`,
-		resourceId: 'c',
 		extendedProps: {
-			therapist: 'Raphaël',
+			room: 'c',
+			therapist: '2',
 			client: 'Jean-Louis Bussignon',
 			service: 'Gommage'
-		},
-		color: 'rgba(0, 255, 0, 0.2)'
+		}
 	},
 	{
 		start: `${t}T13:00:00`,
 		end: `${t}T14:30:00`,
-		resourceId: 'b',
 		extendedProps: {
-			therapist: 'Raphaël',
+			room: 'b',
+			therapist: '2',
 			client: 'Jean-Louis Bussignon',
 			service: 'Gommage'
-		},
-		color: 'rgba(0, 255, 0, 0.2)'
+		}
 	},
 	{
 		start: `${t}T13:00:00`,
 		end: `${t}T18:00:00`,
-		resourceId: 'a',
 		startTime: '13:00', // recurring event
 		endTime: '18:00', // recurring event
 		extendedProps: {
-			therapist: 'Calvin'
-		},
-		color: 'rgba(0, 0, 255, 0.2)'
+			room: 'a',
+			therapist: '3'
+		}
 	},
 	{
 		start: `${t}T08:00:00`,
 		end: `${t}T10:30:00`,
-		resourceId: 'b',
 		extendedProps: {
-			therapist: 'Mehdi',
+			room: 'b',
+			therapist: '4',
 			client: 'Jean-Paul Blabla',
 			service: 'Massage'
-		},
-		color: 'rgba(150, 0, 255, 0.2)'
+		}
 	},
 	{
 		start: `${t}T13:00:00`,
 		end: `${t}T14:30:00`,
-		resourceId: 'c',
 		extendedProps: {
-			therapist: 'Mehdi',
+			room: 'c',
+			therapist: '4',
 			client: 'Jean-Luc Crouillac',
 			service: 'Massage'
-		},
-		color: 'rgba(150, 0, 255, 0.2)'
+		}
 	}
 ];
